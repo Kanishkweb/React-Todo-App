@@ -24,6 +24,7 @@ function TodoItem(props) {
     }
   };
 
+
   // Other functions (handleDelete, etc.)
 
   const openModal = () => {
@@ -51,7 +52,7 @@ function TodoItem(props) {
           <DeleteIcon />
         </IconButton>
       </ListItem>
-      <Modal closeModal={closeModal} open={isModalOpen} />
+      <Modal closeModal={closeModal} open={isModalOpen} todoText={props.text} />
     </div>
   );
 }
