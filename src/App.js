@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { ToastContainer, toast } from 'react-toastify'; // Import the necessary components
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS
+
 import { Button } from '@mui/material';
-import SnackBar from "./SnackBar"
 import { FormControl, InputLabel, Input } from '@mui/material';
 import Todo from './Todo';
 import db from './Firebase';
 import { collection,query, addDoc,onSnapshot, serverTimestamp,orderBy } from "firebase/firestore";
 
 function App() {
+
   const [input, setInput] = useState('');
   const [todos, setTodos] = useState([]);
 
@@ -38,8 +41,19 @@ function App() {
         });
 
         console.log('Document written with ID: ', docRef.id);
+
+        // Show a success toast message
+        toast.success('Todo added successfully!', {
+          position: toast.POSITION.BOTTOM_LEFT,
+          autoClose: 2000, // Duration in milliseconds
+        });
       } catch (error) {
         console.error('Error adding document: ', error);
+        // Show an error toast message
+        toast.error('An error occurred. Please try again later.', {
+          position: toast.POSITION.BOTTOM_LEFT,
+          autoClose: 2000,
+        });
       }
 
       setInput('');
@@ -55,9 +69,9 @@ function App() {
   
   return (
     <>
-    {/* <SnackBar/> */}
+     <ToastContainer /> 
     <div className="App">
-      <h1>Todo App 🔥</h1>
+      <h1 style={{letterSpacing:'2px'}}>TODO APP 🔥</h1>
       <FormControl>
         <InputLabel htmlFor="my-input">✅ Write a Todo</InputLabel>
         <Input value={input} onChange={event => setInput(event.target.value)} onKeyPress={handleInputKeyPress} />

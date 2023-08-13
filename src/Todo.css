@@ -14,6 +14,8 @@
   align-items: center;
   color: #333; /* You can adjust the text color */
   font-size: 18px;
+  border-radius: 50px;
+  font-weight: 800;
   }
   
   .list:hover {

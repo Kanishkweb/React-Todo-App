@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify'; // Import the necessary components
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS
 import { ListItem, ListItemText, Checkbox, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,6 +11,9 @@ import './Todo.css'
 function TodoItem(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
+
+
   const handleDelete = async () => {
     try {
       // Delete the todo from Firestore
@@ -17,10 +22,16 @@ function TodoItem(props) {
         if (doc.data().todo === props.text) {
           await deleteDoc(doc.ref);
           console.log('Document deleted: ', props.text);
+          toast.error(`Todo "${props.text}" has been deleted!`, {
+            position: toast.POSITION.BOTTOM_LEFT,
+            autoClose: 3000, // Duration in milliseconds
+          });
         }
       });
     } catch (error) {
-      console.error('Error deleting document: ', error);
+      toast.error('An error occurred while deleting the todo. Please try again later.', {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
     }
   };
 

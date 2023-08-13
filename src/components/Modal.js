@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { ToastContainer, toast } from 'react-toastify'; // Import the necessary components
+import 'react-toastify/dist/ReactToastify.css'; // Import the CSS
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -6,7 +8,7 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import { updateDoc,doc, query, collection, where, getDocs, QuerySnapshot } from 'firebase/firestore';
+import { updateDoc, doc, query, collection, where, getDocs } from 'firebase/firestore';
 import db from '../Firebase';
 import { useEffect } from 'react';
 
@@ -16,7 +18,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    height:'180px',
+    height: '180px',
     backgroundColor: 'white',
     borderRadius: '10px',
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
@@ -30,9 +32,9 @@ const style = {
     color: '#333', // Dark gray font color for better contrast
     fontFamily: 'Arial, sans-serif',
     fontSize: '1.5rem', // Increased font size
-  };
+};
 
-  export default function TransitionsModal({ open, closeModal, todoText }) {
+export default function TransitionsModal({ open, closeModal, todoText }) {
     const [editedText, setEditedText] = useState(todoText);
 
     const handleTextChange = (event) => {
@@ -49,24 +51,30 @@ const style = {
 
     const handleEditFormSubmit = async () => {
         try {
-            if(docId) {
-                const todoRef = doc(db,'todos',docId);
-                await updateDoc(todoRef,{
-                    todo:editedText,
+            if (docId) {
+                const todoRef = doc(db, 'todos', docId);
+                await updateDoc(todoRef, {
+                    todo: editedText,
                 });
-                console.log('TodoUpdated in FireBase',editedText)
+                console.log('TodoUpdated in FireBase', editedText)
                 closeModal();
+                toast.success('Todo Edit successfully!', {
+                    position: toast.POSITION.BOTTOM_LEFT,
+                    autoClose: 2000, // Duration in milliseconds
+                });
             }
         } catch (error) {
-            console.log(error)
+            toast.error('An error occurred while Editing the todo. Please try again later.', {
+                position: toast.POSITION.BOTTOM_LEFT,
+            });
         }
     }
     const [docId, setDocId] = useState(null)
     useEffect(() => {
         const getDocumentId = async () => {
             const q = query(
-                collection(db,'todos'),
-                where('todo','==',todoText)
+                collection(db, 'todos'),
+                where('todo', '==', todoText)
             );
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
@@ -127,7 +135,7 @@ const style = {
         >
             <Fade in={open}>
                 <Box sx={style}>
-                    <Typography id="transition-modal-title" variant="h6" component="h2" style={{fontSize:'1.5rem'}}>
+                    <Typography id="transition-modal-title" variant="h6" component="h2" style={{ fontSize: '1.5rem' }}>
                         Edit Todo
                     </Typography>
                     <form onSubmit={handleFormSubmit} style={formStyle}>
@@ -138,9 +146,9 @@ const style = {
                             placeholder="Edit your todo..."
                             style={inputStyle}
                         />
-                        <div style={{display:'flex'}}>
-                        <Button type="submit" onClick={handleEditFormSubmit} style={buttonStyle}>Save</Button>
-                        <Button onClick={closeModal} style={cancelButtonStyle}>Cancel</Button>
+                        <div style={{ display: 'flex' }}>
+                            <Button type="submit" onClick={handleEditFormSubmit} style={buttonStyle}>Save</Button>
+                            <Button onClick={closeModal} style={cancelButtonStyle}>Cancel</Button>
                         </div>
                     </form>
                 </Box>
