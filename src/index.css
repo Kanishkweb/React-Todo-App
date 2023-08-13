@@ -24,9 +24,50 @@ li{
   gap: 10px;
   background-color: white;
   margin: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); */
+  /* border-radius: 8px; */
   padding: 16px;
   transition: box-shadow 0.3s ease-in-out; 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
+
+.listitem {
+  /* Your default styles */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: white;
+  margin: 20px;
+  padding: 16px;
+  transition: box-shadow 0.3s ease-in-out;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-radius: 16px;
+}
+
+@media (max-width: 786px) {
+  .listitem {
+    /* Adjust styles for smaller screens */
+    display: flex; /* Change to block layout for smaller screens */
+    margin: 10px; /* Reduce margin for spacing */
+    padding: 10px; /* Adjust padding for spacing */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Lighter shadow for smaller screens */
+    border-radius: 8px;
+    grid-template-columns: none; 
+    gap: 10px;
+  }
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: radial-gradient(328px at 2.9% 15%, rgb(191, 224, 251) 0%, rgb(232, 233, 251) 25.8%, rgb(252, 239, 250) 50.8%, rgb(234, 251, 251) 77.6%, rgb(240, 251, 244) 100.7%);
+  /* White theme background for the body */
+
+}

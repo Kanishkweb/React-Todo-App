@@ -55,7 +55,7 @@ function App() {
   
   return (
     <>
-    <SnackBar/>
+    {/* <SnackBar/> */}
     <div className="App">
       <h1>Todo App 🔥</h1>
       <FormControl>

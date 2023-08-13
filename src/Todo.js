@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Modal from './components/Modal'; // Make sure to import the correct path for your Modal component
 import { deleteDoc, collection, getDocs } from 'firebase/firestore';
 import db from './Firebase';
-
+import './Todo.css'
 function TodoItem(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

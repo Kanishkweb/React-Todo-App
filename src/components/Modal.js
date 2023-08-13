@@ -16,13 +16,23 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+    height:'180px',
+    backgroundColor: 'white',
+    borderRadius: '10px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+    padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlign: 'center',
+    backgroundImage: 'linear-gradient(135deg, #ffffff, #f0f0f0)', // White theme gradient
+    color: '#333', // Dark gray font color for better contrast
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '1.5rem', // Increased font size
+  };
 
-export default function TransitionsModal({ open, closeModal, todoText }) {
+  export default function TransitionsModal({ open, closeModal, todoText }) {
     const [editedText, setEditedText] = useState(todoText);
 
     const handleTextChange = (event) => {
@@ -66,9 +76,43 @@ export default function TransitionsModal({ open, closeModal, todoText }) {
 
         getDocumentId();
     }, [todoText])
-    
 
+    const formStyle = {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: '20px',
+    };
 
+    const inputStyle = {
+        padding: '10px',
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        width: '100%',
+        fontSize: '1rem',
+        marginBottom: '10px',
+    };
+
+    const buttonStyle = {
+        background: '#ff6b6b',
+        color: 'white',
+        border: 'none',
+        padding: '10px 20px',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        fontSize: '1rem',
+        marginRight: '10px',
+    };
+
+    const cancelButtonStyle = {
+        background: 'none',
+        color: '#333',
+        border: 'none',
+        padding: '10px 20px',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        fontSize: '1rem',
+    };
     return (
         <Modal
             aria-labelledby="transition-modal-title"
@@ -83,18 +127,21 @@ export default function TransitionsModal({ open, closeModal, todoText }) {
         >
             <Fade in={open}>
                 <Box sx={style}>
-                    <Typography id="transition-modal-title" variant="h6" component="h2">
+                    <Typography id="transition-modal-title" variant="h6" component="h2" style={{fontSize:'1.5rem'}}>
                         Edit Todo
                     </Typography>
-                    <form onSubmit={handleFormSubmit}>
+                    <form onSubmit={handleFormSubmit} style={formStyle}>
                         <input
                             type="text"
                             value={editedText}
                             onChange={handleTextChange}
                             placeholder="Edit your todo..."
+                            style={inputStyle}
                         />
-                        <Button type="submit" onClick={handleEditFormSubmit}>Save</Button>
-                        <Button onClick={closeModal}>Cancel</Button>
+                        <div style={{display:'flex'}}>
+                        <Button type="submit" onClick={handleEditFormSubmit} style={buttonStyle}>Save</Button>
+                        <Button onClick={closeModal} style={cancelButtonStyle}>Cancel</Button>
+                        </div>
                     </form>
                 </Box>
             </Fade>

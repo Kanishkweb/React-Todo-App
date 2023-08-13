@@ -37,7 +37,7 @@ export default function FabIntegrationSnackbar() {
             </Typography>
           </Toolbar>
         </AppBar>
-        <Fab
+        <Fab style={{position:'fixed'}}
           color="secondary"
           sx={{
             position: 'absolute',
